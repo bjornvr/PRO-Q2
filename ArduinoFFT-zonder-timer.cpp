@@ -31,8 +31,9 @@
  by Tom Igoe
  modified 22 Nov 2010
  by Tom Igoe
+ modified 28 May 2020
+ by Bjoern van Rozelaar
 
- This example code is in the public domain.
 
  http://www.arduino.cc/en/Tutorial/LiquidCrystal
  */
@@ -55,13 +56,13 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef arduinoFFT_h /* Prevent loading library twice */
+#ifndef arduinoFFT_h // Prevent loading library twice
 #define arduinoFFT_h
 #ifdef ARDUINO
 #if ARDUINO >= 100
 #include "Arduino.h"
 #else
-#include "WProgram.h" /* This is where the standard Arduino code lies */
+#include "WProgram.h" // This is where the standard Arduino code lies
 #endif
 #else
 #include <stdlib.h>
@@ -76,22 +77,22 @@
 #endif
 
 #define FFT_LIB_REV 0x14
-/* Custom constants */
+// Custom constants
 #define FFT_FORWARD 0x01
 #define FFT_REVERSE 0x00
 
-/* Windowing type */
-#define FFT_WIN_TYP_RECTANGLE 0x00 /* rectangle (Box car) */
-#define FFT_WIN_TYP_HAMMING 0x01 /* hamming */
-#define FFT_WIN_TYP_HANN 0x02 /* hann */
-#define FFT_WIN_TYP_TRIANGLE 0x03 /* triangle (Bartlett) */
-#define FFT_WIN_TYP_NUTTALL 0x04 /* nuttall */
-#define FFT_WIN_TYP_BLACKMAN 0x05 /* blackman */
-#define FFT_WIN_TYP_BLACKMAN_NUTTALL 0x06 /* blackman nuttall */
-#define FFT_WIN_TYP_BLACKMAN_HARRIS 0x07 /* blackman harris*/
-#define FFT_WIN_TYP_FLT_TOP 0x08 /* flat top */
-#define FFT_WIN_TYP_WELCH 0x09 /* welch */
-/*Mathematial constants*/
+// Windowing type
+#define FFT_WIN_TYP_RECTANGLE 0x00	// rectangle (Box car)
+#define FFT_WIN_TYP_HAMMING 0x01		// hamming
+#define FFT_WIN_TYP_HANN 0x02				// hann
+#define FFT_WIN_TYP_TRIANGLE 0x03 	// triangle (Bartlett)
+#define FFT_WIN_TYP_NUTTALL 0x04 		// nuttall
+#define FFT_WIN_TYP_BLACKMAN 0x05 	// blackman
+#define FFT_WIN_TYP_BLACKMAN_NUTTALL 0x06 // blackman nuttall
+#define FFT_WIN_TYP_BLACKMAN_HARRIS 0x07 // blackman harris
+#define FFT_WIN_TYP_FLT_TOP 0x08 		// flat top
+#define FFT_WIN_TYP_WELCH 0x09 			// welch
+//Mathematial constants
 #define twoPi 6.28318531
 #define fourPi 12.56637061
 #define sixPi 18.84955593
@@ -110,12 +111,12 @@ static const double _c2[]PROGMEM = { 1.0000000000, 0.7071067812, 0.3826834324, 0
 #endif
 class arduinoFFT {
 public:
-	/* Constructor */
+	// Constructor
 	arduinoFFT(void);
 	arduinoFFT(double* vReal, double* vImag, uint16_t samples, double samplingFrequency);
-	/* Destructor */
+	// Destructor
 	~arduinoFFT(void);
-	/* Functions */
+	// Functions
 	uint8_t Revision(void);
 	uint8_t Exponent(uint16_t value);
 
@@ -603,9 +604,9 @@ void arduinoFFT::Swap(double* x, double* y)
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 arduinoFFT FFT = arduinoFFT(); /* Create FFT object */
-/*
-These values can be changed in order to evaluate the functions
-*/
+
+//These values can be changed in order to evaluate the functions
+
 const uint16_t samples = 128; //This value MUST ALWAYS be a power of 2
 double signalFrequency = 500;
 double samplingFrequency = 1000;
@@ -615,10 +616,10 @@ bool highspeed = false;
 #define DIVL 44.0
 double divider = DIVL;
 
-/*
-These are the input and output vectors
-Input vectors receive computed results from FFT
-*/
+
+//These are the input and output vectors
+//Input vectors receive computed results from FFT
+
 double vReal[samples];
 double vImag[samples];
 
@@ -658,7 +659,7 @@ void loop()
 		while (micros() < (microseconds + sampling_period_us)) {
 		}
 	}
-	/* Build raw data */
+	// Build raw data
 	FFT.Windowing(vReal, samples, FFT_WIN_TYP_HAMMING, FFT_FORWARD);	/* Weigh data */
 	FFT.Compute(vReal, vImag, samples, FFT_FORWARD); /* Compute FFT */
 	FFT.ComplexToMagnitude(vReal, vImag, samples); /* Compute magnitudes */
@@ -759,7 +760,7 @@ void loop()
 		lcd.print(vc, 0);
 		lcd.print(")     ");
 	}
-	delay(200); /* Repeat after delay */
+	delay(200); // Repeat after delay
 
 	//Switch between low frequency and high frequency mode
 	if (pa > 100) {
@@ -785,12 +786,13 @@ void loop()
 	sampling_period_us = round(1000000 * (1.0 / samplingFrequency));
 }
 
+/* PrintVector
 void PrintVector(double* vData, uint16_t bufferSize, uint8_t scaleType)
 {
 	for (uint16_t i = 0; i < bufferSize; i++)
 	{
 		double abscissa;
-		/* Print abscissa value */
+		// Print abscissa value
 		switch (scaleType)
 		{
 		case SCL_INDEX:
@@ -811,3 +813,4 @@ void PrintVector(double* vData, uint16_t bufferSize, uint8_t scaleType)
 	}
 	Serial.println();
 }
+*/
