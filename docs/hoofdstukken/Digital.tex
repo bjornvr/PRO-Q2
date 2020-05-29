@@ -1,0 +1,12 @@
+\section{Digital Part: Spectrum Analyzer}
+
+\subsection{LCD}
+The LCD that shall be used, will be a standard 16x2 LCD. The LCD used on Tinkercad has HD44780 like functionality. There is no real way to know what type of LCD is being simulated. The Hitachi HD44780 is a known driver IC for 16x2 LCD's. The communication with the LCD can work one of two ways, the first way is the more commonly used 4 bit communication. The circuit and software in Tinkercad will use this 4 bit communication. The other way to communicate is using 8 bit communication with the LCD. 8 bit has numerous of advantages over 4 bit, like faster communication and easier communication. However the amount of pins on a microcontroller are limited this is why 4 bit mode is more commonly used, the speed advantage of using 8 bit mode is to small to be real world advantage in most cases.
+\\
+\indent{} The LCD must first be initialized to be used. After this characters can be written to the display by moving the cursor and writing the data to the LCD. Custom characters can be programmed into the LCD to be able to write your own characters. This is usually done after the initialization, for this project no custom characters will be used. Variable text can be written to the display in multiple ways. The whole string can made and the variable text can be inserted using a function like snprintf. An other way can be to use the cursor to overwrite variable text, both have there advantages. 
+
+\subsection{ArduinoFFT library}
+The ArduinoFFT library contains the algorithm to calculate a Fourier transform out of an analog input signal. This algorithm is used by first calculating the sampling rate and setting things up, thereafter the input signal is being sampled 
+
+\subsection{Display function}
+For the digital part, the spectrum analyzer, a display function has been set up, this function
